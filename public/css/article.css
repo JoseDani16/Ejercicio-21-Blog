@@ -1,0 +1,48 @@
+.jumbotron {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/livro2.webp");
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*============ Article =============*/
+
+.form-group {
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+
+#button {
+  margin-bottom: 40px;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.comment p {
+  margin-bottom: 0;
+}
+
+#comments {
+  margin-bottom: 40px;
+}
+
+/*============ Footer =============*/
+
+small {
+  color: rgb(128, 126, 126);
+}
+
+.fa-brands {
+  font-size: 1.8rem;
+}
+
+footer {
+  margin-bottom: 40px;
+}
