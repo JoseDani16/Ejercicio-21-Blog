@@ -9,7 +9,7 @@ module.exports = async () => {
 
   for (let i = 0; i < 8; i++) {
     const randomArticle = article[Math.floor(Math.random() * article.length)];
-    console.log(randomArticle.id);
+    //console.log(randomArticle.id);
 
     comments.push({
       firstname: faker.name.firstName(),

@@ -38,7 +38,7 @@
             <th scope="row"><%=article.dataValues.id%></th>
             <td><%=article.dataValues.title%></td>
             <td><%=article.dataValues.content.slice(0, 150) + "..."%></td>
-            <td>image</td>
+            <td><img src="/img/<%=article.dataValues.image%>" /></td>
             <td><%=article.createdAt%></td>
             <td><%=article.user.firstname%> <%=article.user.lastname%></td>
             <td>

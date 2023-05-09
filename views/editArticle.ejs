@@ -22,7 +22,11 @@
           <h3 class="text-muted">Edit article</h3>
         </div>
         <hr />
-        <form method="post" action="/articulos/editar/<%=article.dataValues.id%>">
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          action="/articulos/editar/<%=article.dataValues.id%>"
+        >
           <label for="title" class="mb-2 text-muted fw-bold">Title</label>
           <input
             type="text"

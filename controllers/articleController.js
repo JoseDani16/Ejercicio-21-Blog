@@ -1,5 +1,6 @@
 const { Article } = require("../models");
 const { format } = require("date-fns");
+const formidable = require("formidable");
 
 //creo controlador para la ruta admin
 async function showAdmin(req, res) {
@@ -36,18 +37,29 @@ async function edit(req, res) {
   const articleId = req.params.id;
   const article = await Article.findByPk(articleId, { include: "user" });
 
-  console.log(article);
+  // console.log(article);
 
   return res.render("editArticle", { article });
 }
 //editar articulo post
 async function update(req, res) {
-  const articleId = req.params.id;
-  const articles = await Article.findByPk(articleId);
+  const form = formidable({
+    multiples: false,
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+  });
 
-  console.log(articleId);
-
-  return res.render("editArticle", { articles });
+  form.parse(req, async (err, fields, files) => {
+    const article = await Article.update(
+      {
+        title: fields.title,
+        content: fields.content,
+        image: files.image.newFilename,
+      },
+      { where: { id: req.params.id } },
+    );
+    return res.redirect("/admin");
+  });
 }
 
 // Display a listing of the resource.
