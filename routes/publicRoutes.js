@@ -13,5 +13,6 @@ router.get("/crear", (req, res) => {
 });
 */
 router.get("/registro", pagesController.register)
+router.post("/registro", pagesController.addUser)
 
 module.exports = router;
