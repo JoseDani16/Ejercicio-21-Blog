@@ -6,5 +6,6 @@ const articleController = require("../controllers/articleController");
 // ...
 
 router.get("/", articleController.showAdmin);
+router.get("");
 
 module.exports = router;

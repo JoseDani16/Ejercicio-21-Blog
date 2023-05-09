@@ -17,7 +17,7 @@
  */
 
 const { Article, User } = require("../models");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 async function showHome(req, res) {
   const articles = await Article.findAll({ include: User });
@@ -44,21 +44,28 @@ async function showNewArticle(req, res) {
 }
 
 async function register(req, res) {
- res.render("register")
+  res.render("register");
 }
 
 async function addUser(req, res) {
-  console.log("hasta acá legué")
-  const {firstname, lastname, email} = req.body;
+  const { firstname, lastname, email } = req.body;
   const password = await bcrypt.hashSync(req.body.password, 4);
   await User.create({
     firstname,
     lastname,
     email,
-    password
-  })
-  return res.redirect("admin")
- }
+    password,
+  });
+  return res.redirect("admin");
+}
+
+async function showLogin(req, res) {
+  return res.render("login");
+}
+
+// async function login(req, res) {
+//   console.log("hasta aca llegamo");
+// }
 
 module.exports = {
   showHome,
@@ -66,5 +73,6 @@ module.exports = {
   showContact,
   showAboutUs,
   register,
-  addUser
+  addUser,
+  showLogin,
 };
