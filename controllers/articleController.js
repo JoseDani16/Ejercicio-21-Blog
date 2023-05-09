@@ -32,16 +32,14 @@ async function showArticle(req, res) {
   return res.render("article", { article });
 }
 
-//editar articulo
+// Show the form for editing the specified resource.
 async function edit(req, res) {
   const articleId = req.params.id;
   const article = await Article.findByPk(articleId, { include: "user" });
 
-  // console.log(article);
-
   return res.render("editArticle", { article });
 }
-//editar articulo post
+// Update the specified resource in storage.
 async function update(req, res) {
   const form = formidable({
     multiples: false,
@@ -58,6 +56,7 @@ async function update(req, res) {
       },
       { where: { id: req.params.id } },
     );
+
     return res.redirect("/admin");
   });
 }
@@ -72,14 +71,42 @@ async function show(req, res) {}
 async function create(req, res) {}
 
 // Store a newly created resource in storage.
+
 async function store(req, res) {}
 
-// Show the form for editing the specified resource.
+/*
+  const form = formidable({
+    multiples: false,
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+  });
 
-// Update the specified resource in storage.
+  form.parse(req, async (err, fields, files) => {
+    const article = await Article.create({
+      title: fields.title,
+      content: fields.content,
+      image: files.image.name,
+    });
 
+    return res.redirect("/admin");
+  });
+}
+*/
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const articleId = req.params.id;
+  const article = await Article.findByPk(articleId);
+
+  await article.destroy();
+
+  return res.redirect("/admin");
+  /*
+  const articleId = req.params.id;
+  const article = await Article.destroy({ where: { id: articleId } });
+
+  return res.redirect("/admin", { article });
+*/
+}
 
 // Otros handlers...
 // ...
