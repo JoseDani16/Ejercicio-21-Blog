@@ -1,4 +1,5 @@
-const { Comment } = require("../models");
+const { Comment, Article } = require("../models");
+const { findByPk } = require("../models/User");
 
 // Display a listing of the resource.
 async function index(req, res) {}
@@ -10,10 +11,22 @@ async function index(req, res) {}
 // }
 
 //===> creo el controller de posteo de comentarios
-async function create(req, res) {}
+async function create(req, res) {
+  const articleId = req.params.id;
+  const article = await Article.findByPk(articleId);
+  return res.render("/articulos/:id", article);
+}
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  const newComment = await Comment.create({
+    firstname: req.body.name,
+    comment: req.body.comment,
+    articleId: article.id,
+  });
+
+  return res.redirect("/admin");
+}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {}

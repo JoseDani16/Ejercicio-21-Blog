@@ -15,7 +15,7 @@ class Comment extends Model {
         },
         lastname: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         comment: {
           type: DataTypes.TEXT,
