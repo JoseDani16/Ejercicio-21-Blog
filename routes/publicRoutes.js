@@ -7,10 +7,11 @@ const pagesController = require("../controllers/pagesController");
 router.get("/", pagesController.showHome);
 router.get("/api/articulos", pagesController.showApi);
 //router.get("/article/:id", pagesController.showArticle);
-
 /*
 router.get("/crear", (req, res) => {
   res.render("newArticle");
 });
 */
+router.get("/registro", pagesController.register)
+
 module.exports = router;

@@ -10,7 +10,7 @@ class Article extends Model {
           autoIncrement: true,
         },
         title: {
-          type: DataTypes.STRING(100),
+          type: DataTypes.STRING,
           allowNull: false,
         },
         content: {
