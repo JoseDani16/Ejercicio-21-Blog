@@ -26,12 +26,22 @@ async function showArticle(req, res) {
     where: { id: articleId },
     include: "user",
   });
+  //console.log(article);
 
   return res.render("article", { article });
 }
 
 //editar articulo
-async function editArticle(req, res) {
+async function edit(req, res) {
+  const articleId = req.params.id;
+  const article = await Article.findByPk(articleId, { include: "user" });
+
+  console.log(article);
+
+  return res.render("editArticle", { article });
+}
+//editar articulo post
+async function update(req, res) {
   const articleId = req.params.id;
   const articles = await Article.findByPk(articleId);
 
@@ -39,6 +49,7 @@ async function editArticle(req, res) {
 
   return res.render("editArticle", { articles });
 }
+
 // Display a listing of the resource.
 async function index(req, res) {}
 
@@ -52,10 +63,8 @@ async function create(req, res) {}
 async function store(req, res) {}
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}
@@ -67,7 +76,6 @@ module.exports = {
   showAdmin,
   showNewArticle,
   showArticle,
-  editArticle,
   index,
   show,
   create,
