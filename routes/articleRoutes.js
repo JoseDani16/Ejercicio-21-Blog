@@ -13,6 +13,9 @@ router.post("/editar/:id", articleController.update);
 router.get("/delete/:id", articleController.destroy);
 //router.post("/", articleController.store);
 
+//nuevo post crear artículo
+router.post("/crear/new", articleController.create);
+
 module.exports = router;
 
 //router.get("/:id/editar", articleController.edit);

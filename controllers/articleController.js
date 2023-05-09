@@ -1,4 +1,4 @@
-const { Article } = require("../models");
+const { Article, User } = require("../models");
 const { format } = require("date-fns");
 const formidable = require("formidable");
 
@@ -68,7 +68,24 @@ async function index(req, res) {}
 async function show(req, res) {}
 
 // Show the form for creating a new resource
-async function create(req, res) {}
+async function create(req, res) {
+  const form = formidable({
+    multiples: false,
+    uploadDir: __dirname + "/../public/img",
+    keepExtensions: true,
+  });
+
+  form.parse(req, async (err, fields, files) => {
+    const newArticle = await Article.create({
+      title: fields.title,
+      content: fields.content,
+      image: files.image.newFilename,
+      userId: fields.author,
+    });
+
+    return res.redirect("/admin");
+  });
+}
 
 // Store a newly created resource in storage.
 
