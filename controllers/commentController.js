@@ -11,18 +11,20 @@ async function index(req, res) {}
 // }
 
 //===> creo el controller de posteo de comentarios
-async function create(req, res) {
+/*async function create(req, res) {
   const articleId = req.params.id;
   const article = await Article.findByPk(articleId);
   return res.render("/articulos/:id", article);
-}
+}*/
 
 // Store a newly created resource in storage.
 async function store(req, res) {
+  const articleId = req.params.id;
+
   const newComment = await Comment.create({
     firstname: req.body.name,
     comment: req.body.comment,
-    articleId: article.id,
+    articleId: articleId,
   });
 
   return res.redirect("/admin");
@@ -43,7 +45,7 @@ async function destroy(req, res) {}
 module.exports = {
   index,
   // showComment,
-  create,
+  //create,
   store,
   edit,
   update,
