@@ -1,10 +1,18 @@
 const { passport } = require("../config/passport");
 
 function login(req, res) {
+  
   passport.authenticate("local", {
     successRedirect: "/admin",
-    failureRedirect: "/admin/login",
+    failureRedirect: "/login",
   })(req, res);
+  
 }
 
-module.exports = { login };
+function logout(req, res) {
+  
+  req.session.destroy(()=>{res.redirect('/')});
+
+}
+
+module.exports = { login, logout };

@@ -9,5 +9,6 @@ const authController = require("../controllers/authController");
 
 router.get("/", ensureAuthenticated, articleController.showAdmin);
 router.post("/login", authController.login);
+router.get("/logout", authController.logout);
 
 module.exports = router;
