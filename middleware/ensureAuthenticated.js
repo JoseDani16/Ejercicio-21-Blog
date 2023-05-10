@@ -1,7 +1,6 @@
 //const session = require("express-session");
 
 function ensureAuthenticated(req, res, next){
-    console.log(req);
     if (req.isAutenticated()){
         return next();
     } else {

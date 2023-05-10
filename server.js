@@ -12,7 +12,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-routes(app);
+
 //------------------------------------------------
 
 //Passport
@@ -29,6 +29,8 @@ app.use(
 
 app.use(passport.session());
 passportConfig();
+
+routes(app);
 
 app.listen(APP_PORT, () => {
   console.log(`\n[Express] Servidor corriendo en el puerto ${APP_PORT}.`);

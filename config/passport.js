@@ -40,7 +40,7 @@ passport.serializeUser((user, done) => {
 });
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = awaitUser.findByPk(id);
+    const user = await User.findByPk(id);
  done(null, user); // Usuario queda disponible en req.user.
   } catch (err) {
  done(err);
