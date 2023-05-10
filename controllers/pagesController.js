@@ -16,12 +16,17 @@
  * no debería existir.
  */
 
+const verify = (req) => {
+  return req.isAuthenticated();
+};
+
 const { Article, User } = require("../models");
 const bcrypt = require("bcryptjs");
 
 async function showHome(req, res) {
+  const log = verify(req);
   const articles = await Article.findAll({ include: User });
-  res.render("home", { articles });
+  res.render("home", { articles, log });
 }
 
 //creo api para articulos
@@ -48,15 +53,22 @@ async function register(req, res) {
 }
 
 async function addUser(req, res) {
-  const { firstname, lastname, email } = req.body;
-  const password = await bcrypt.hashSync(req.body.password, 4);
-  await User.create({
-    firstname,
-    lastname,
-    email,
-    password,
-  });
-  return res.redirect("admin");
+  try {
+    const { firstname, lastname, email } = req.body;
+    const password = await bcrypt.hash(req.body.password, 4);
+    await User.create({
+      firstname,
+      lastname,
+      email,
+      password,
+    });
+    return res.redirect("/admin");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", error.message);
+    req.flash("firstname", firstname);
+    return res.redirect("back");
+  }
 }
 
 async function showLogin(req, res) {

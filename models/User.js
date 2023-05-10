@@ -11,13 +11,17 @@ class User extends Model {
         },
         firstname: {
           type: DataTypes.STRING,
+          allowNull: false,
         },
         lastname: {
           type: DataTypes.STRING,
+          allowNull: false,
         },
         email: {
           type: DataTypes.STRING,
           allowNull: false,
+          unique: { arg: true, msg: "El mail ya existe en la base de datos" },
+          validate: { isEmail: { msg: "El mail no tiene un formato válido" } },
         },
         password: {
           type: DataTypes.STRING,

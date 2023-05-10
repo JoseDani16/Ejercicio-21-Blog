@@ -16,7 +16,7 @@
   </head>
 
   <body>
-    <%- include("./partials/navbar.ejs") %>
+    <%-log ? include("./partials/navbarPriv.ejs") : include("./partials/navbar.ejs") %>
     <div class="jumbotron">
       <div class="container text-center">
         <h1 class="fs-1 text-white fw-bold">Hack the Blog</h1>

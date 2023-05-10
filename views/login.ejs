@@ -14,7 +14,12 @@
   </head>
 
   <body>
-    <%- include("./partials/navbar.ejs") %> |
+    <%- include("./partials/navbar.ejs") %>
+    <% if (messages.error) { %>
+      <div class="alert alert-danger">
+        <%= messages.error %>
+      </div>
+    <% } %>
     <section class="vh-100 mt-5">
       <div class="container-fluid h-custom">
         <div class="container">
