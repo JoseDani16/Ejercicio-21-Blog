@@ -4,7 +4,12 @@ const formidable = require("formidable");
 
 //creo controlador para la ruta admin
 async function showAdmin(req, res) {
-  const articles = await Article.findAll({ include: { all: true } });
+  const articles = await Article.findAll({
+    where: {
+      userId: req.user.id,
+    },
+    include: "user",
+  });
 
   const formattedArticles = articles.map((article) => {
     const dateToFormat = article.createdAt;
@@ -22,14 +27,12 @@ async function showNewArticle(req, res) {
 
 //mostrar articulo
 async function showArticle(req, res) {
-  const articleId = req.params.id;
-  const article = await Article.findOne({
-    where: { id: articleId },
-    include: "user",
-  });
+  const id = req.params.id;
+  const article = await Article.findByPk(id, { include: ["user", "comments"] });
+  const comments = article.comments.sort((a, b) => b.createdAt - a.createdAt);
   //console.log(article);
 
-  return res.render("article", { article });
+  return res.render("article", { article, comments });
 }
 
 // Show the form for editing the specified resource.
@@ -80,7 +83,7 @@ async function create(req, res) {
       title: fields.title,
       content: fields.content,
       image: files.image.newFilename,
-      userId: fields.author,
+      userId: req.user.id,
     });
 
     return res.redirect("/admin");

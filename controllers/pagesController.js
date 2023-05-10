@@ -16,6 +16,8 @@
  * no debería existir.
  */
 
+const { format } = require("date-fns");
+
 const verify = (req) => {
   return req.isAuthenticated();
 };
@@ -26,7 +28,7 @@ const bcrypt = require("bcryptjs");
 async function showHome(req, res) {
   const log = verify(req);
   const articles = await Article.findAll({ include: User });
-  res.render("home", { articles, log });
+  res.render("home", { articles, log, format });
 }
 
 //creo api para articulos

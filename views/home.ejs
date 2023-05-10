@@ -31,7 +31,8 @@
         <a id="article-headers" href="/articulos/<%=article.id%>"> <%= article.title %> </a>
       </div>
       <small>
-        <%= article.user.firstname %> <%= article.user.lastname %> <%= article.createdAt %>
+        Creado por <%= article.user.firstname %> <%= article.user.lastname %> el <%= format(
+        article.createdAt, 'do MMMM, yyyy')%>
       </small>
     </div>
     <hr />

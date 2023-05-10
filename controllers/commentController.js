@@ -22,12 +22,13 @@ async function store(req, res) {
   const articleId = req.params.id;
 
   const newComment = await Comment.create({
-    firstname: req.body.name,
+    firstname: req.user.firstname,
+    lastname: req.user.lastname,
     comment: req.body.comment,
     articleId: articleId,
   });
 
-  return res.redirect("/admin");
+  return res.redirect(`/articulos/${articleId}`);
 }
 
 // Show the form for editing the specified resource.

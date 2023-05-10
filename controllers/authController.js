@@ -2,7 +2,7 @@ const { passport } = require("../config/passport");
 
 function login(req, res) {
   passport.authenticate("local", {
-    successRedirect: "/admin",
+    successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true,
   })(req, res);
