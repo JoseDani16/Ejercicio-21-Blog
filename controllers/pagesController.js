@@ -27,7 +27,10 @@ const bcrypt = require("bcryptjs");
 
 async function showHome(req, res) {
   const log = verify(req);
-  const articles = await Article.findAll({ include: User });
+  const articles = await Article.findAll({
+    order: [["createdAt", "DESC"]],
+    include: "user",
+  });
   res.render("home", { articles, log, format });
 }
 
