@@ -12,20 +12,19 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-
 //------------------------------------------------
 
 //Passport
 
-const {passport, session, passportConfig } = require ("./config/passport")
+const { passport, session, passportConfig } = require("./config/passport");
 
 app.use(
   session({
-  secret: "AlgúnTextoSuperSecreto",
-  resave: false, 
-  saveUninitialized: false, 
+    secret: "AlgúnTextoSuperSecreto",
+    resave: false,
+    saveUninitialized: false,
   }),
-  );
+);
 
 app.use(passport.session());
 passportConfig();

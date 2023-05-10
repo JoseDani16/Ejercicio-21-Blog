@@ -1,10 +1,10 @@
-const {passport, passportConfig } = require ("../config/passport")
+const { passport } = require("../config/passport");
 
 function login(req, res) {
-passport.authenticate("local", {
+  passport.authenticate("local", {
     successRedirect: "/admin",
-    failureRedirect: "/login",
-})(req,res)  
+    failureRedirect: "/admin/login",
+  })(req, res);
 }
 
-module.exports = {login}
+module.exports = { login };
