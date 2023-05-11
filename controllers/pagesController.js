@@ -21,9 +21,8 @@ const { format } = require("date-fns");
 const verify = (req) => {
   return req.isAuthenticated();
 };
-
 const { Article, User } = require("../models");
-const bcrypt = require("bcryptjs");
+
 
 async function showHome(req, res) {
   const log = verify(req);
@@ -59,8 +58,7 @@ async function register(req, res) {
 
 async function addUser(req, res) {
   try {
-    const { firstname, lastname, email } = req.body;
-    const password = await bcrypt.hash(req.body.password, 4);
+    const { firstname, lastname, email, password } = req.body;
     await User.create({
       firstname,
       lastname,
