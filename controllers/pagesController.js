@@ -51,7 +51,32 @@ async function register(req, res) {
 }
 
 async function addUser(req, res) {
-  try {
+try{
+  const { firstname, lastname, email, password } = req.body
+  const [user, created] = await User.findOrCreate({
+    where: { email },
+    defaults: { 
+      firstname,
+      lastname,
+      password
+      }
+  });
+
+    if (created) {
+    req.login(user, () => res.redirect("/"));
+    } else {
+    req.flash("falla", "el correo electronico ya está registrado");
+    req.flash("firstname", firstname);
+    req.flash("lastname", lastname);
+    res.redirect("back");
+    }
+  } catch (error) {
+    req.flash("error", error.message);
+    return res.redirect("back");
+  }
+  
+  
+  /*try {
     const { firstname, lastname, email, password } = req.body;
     await User.create({
       firstname,
@@ -65,7 +90,7 @@ async function addUser(req, res) {
     req.flash("error", error.message);
     //req.flash("firstname", firstname);
     return res.redirect("back");
-  }
+  }*/
 }
 
 async function showLogin(req, res) {
