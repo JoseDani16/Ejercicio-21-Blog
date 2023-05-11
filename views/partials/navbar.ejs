@@ -2,8 +2,26 @@
   <div class="container justify-content-around">
     <a class="navbar-brand fs-5 fw-bold" href="/">Hack the blog</a>
     <div>
+      <% if(!user) {%>
       <a class="btn btn-primary" href="/login">Login</a>
       <a class="btn btn-success" href="/registro">Register</a>
+      <% } else { %>
+      <div class="dropdown">
+        <button
+          class="bg-transparent text-white dropdown-toggle"
+          style="border: none"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <%=user.firstname+' '+user.lastname %>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="/admin/logout" class="dropdown-item">Logout</a></li>
+          <hr class="dropdown-divider" />
+          <li><a href="/admin" class="dropdown-item">Admin</a><%} %></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
