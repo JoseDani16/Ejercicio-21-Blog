@@ -3,7 +3,7 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.session.redirectTo = req.originalUrl;
-    res.redirect("/login");
+    return res.redirect("/login");
   }
 }
 

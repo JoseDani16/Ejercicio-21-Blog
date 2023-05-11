@@ -7,9 +7,9 @@ const {ensureAuthenticated} = require("../middleware/auth");
 // ...
 
 router.get("/", articleController.index);
-router.get("/crear", articleController.showNewArticle);
+router.get("/crear", ensureAuthenticated, articleController.showNewArticle);
 router.get("/:id", ensureAuthenticated, articleController.showArticle);
-router.get("/editar/:id", articleController.edit);
+router.get("/editar/:id", ensureAuthenticated, articleController.edit);
 router.post("/editar/:id", articleController.update);
 router.get("/delete/:id", articleController.destroy);
 //router.post("/", articleController.store);

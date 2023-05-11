@@ -74,23 +74,6 @@ try{
     req.flash("error", error.message);
     return res.redirect("back");
   }
-  
-  
-  /*try {
-    const { firstname, lastname, email, password } = req.body;
-    await User.create({
-      firstname,
-      lastname,
-      email,
-      password,
-    });
-    return res.redirect("/admin");
-  } catch (error) {
-    console.log(error);
-    req.flash("error", error.message);
-    //req.flash("firstname", firstname);
-    return res.redirect("back");
-  }*/
 }
 
 async function showLogin(req, res) {
