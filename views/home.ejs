@@ -16,7 +16,8 @@
   </head>
 
   <body>
-    <%-log ? include("./partials/navbarPriv.ejs") : include("./partials/navbar.ejs") %>
+    <%-user ? include("./partials/navbarPriv.ejs") : include("./partials/navbar.ejs") %> <%
+    console.log(user); %>
     <div class="jumbotron">
       <div class="container text-center">
         <h1 class="fs-1 text-white fw-bold">Hack the Blog</h1>

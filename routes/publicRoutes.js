@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const pagesController = require("../controllers/pagesController");
-const {redirectIfAuthenticated} = require("../middleware/auth");
+const { redirectIfAuthenticated } = require("../middleware/auth");
+const { makeUserAvailableInViews } = require("../middleware/auth");
 
 // Rutas relacionadas a la parte pública del sitio web:
 // ...

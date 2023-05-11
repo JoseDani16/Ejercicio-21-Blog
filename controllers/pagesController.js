@@ -17,20 +17,14 @@
  */
 
 const { format } = require("date-fns");
-
-const verify = (req) => {
-  return req.isAuthenticated();
-};
 const { Article, User } = require("../models");
 
-
 async function showHome(req, res) {
-  const log = verify(req);
   const articles = await Article.findAll({
     order: [["createdAt", "DESC"]],
     include: "user",
   });
-  res.render("home", { articles, log, format });
+  res.render("home", { articles, format });
 }
 
 //creo api para articulos

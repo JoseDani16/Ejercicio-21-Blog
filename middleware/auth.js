@@ -1,17 +1,23 @@
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    } else {
-      req.session.redirectTo = req.originalUrl;
-      res.redirect("/login");
-    }
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    req.session.redirectTo = req.originalUrl;
+    res.redirect("/login");
   }
+}
 
-  function redirectIfAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      res.redirect("/"); 
-    } else {
-      return next();
-    }
+function redirectIfAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  } else {
+    return next();
   }
-  module.exports = {ensureAuthenticated, redirectIfAuthenticated};
+}
+
+function makeUserAvailableInViews(req, res, next) {
+  res.locals.user = req.user;
+  return next();
+}
+
+module.exports = { ensureAuthenticated, redirectIfAuthenticated, makeUserAvailableInViews };

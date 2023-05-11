@@ -7,6 +7,7 @@ const flash = require("express-flash");
 const APP_PORT = process.env.APP_PORT || 3000;
 const app = express();
 const methodOverride = require("method-override");
+const { makeUserAvailableInViews } = require("./middleware/auth");
 
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
@@ -30,6 +31,8 @@ app.use(
 
 app.use(passport.session());
 passportConfig();
+
+app.use(makeUserAvailableInViews);
 
 routes(app);
 
