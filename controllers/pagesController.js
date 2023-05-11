@@ -69,7 +69,7 @@ async function addUser(req, res) {
   } catch (error) {
     console.log(error);
     req.flash("error", error.message);
-    req.flash("firstname", firstname);
+    //req.flash("firstname", firstname);
     return res.redirect("back");
   }
 }

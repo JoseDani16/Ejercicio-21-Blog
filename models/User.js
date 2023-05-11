@@ -21,7 +21,7 @@ class User extends Model {
         email: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: { arg: true, msg: "El mail ya existe en la base de datos" },
+          unique: true,
           validate: { isEmail: { msg: "El mail no tiene un formato válido" } },
         },
         password: {

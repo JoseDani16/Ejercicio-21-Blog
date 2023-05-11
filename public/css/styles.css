@@ -25,3 +25,7 @@
 small {
   color: rgb(128, 126, 126);
 }
+
+td, th {
+  border: none;
+}

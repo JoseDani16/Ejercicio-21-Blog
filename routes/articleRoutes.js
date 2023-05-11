@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const articleController = require("../controllers/articleController");
+const {ensureAuthenticated} = require("../middleware/auth");
 
 // Rutas relacionadas a los artículos:
 // ...
 
 router.get("/", articleController.index);
 router.get("/crear", articleController.showNewArticle);
-router.get("/:id", articleController.showArticle);
+router.get("/:id", ensureAuthenticated, articleController.showArticle);
 router.get("/editar/:id", articleController.edit);
 router.post("/editar/:id", articleController.update);
 router.get("/delete/:id", articleController.destroy);
