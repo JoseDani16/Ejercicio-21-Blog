@@ -1,4 +1,4 @@
-const { Article } = require("../models");
+const { Article, User } = require("../models");
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -21,6 +21,39 @@ async function isOwner(req, res, next) {
     return res.redirect("/");
   }
 }
+async function isOwnerOrAdmin(req, res, next) {
+  const { id } = await User.findByPk(req.params.id);
+  if ((req.user && req.user.id === id) || (req.user && req.user.levelPermission >= 4)) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
+}
+
+function levelPermisionWriter(req, res, next) {
+  if (req.user && req.user.levelPermission >= 2) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
+}
+
+function levelPermisionEditor(req, res, next) {
+  if (req.user && req.user.levelPermission >= 3) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
+}
+
+function levelPermisionAdmin(req, res, next) {
+  if (req.user && req.user.levelPermission === 4) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
+}
+
 function redirectIfAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     res.redirect("/");
@@ -40,4 +73,8 @@ module.exports = {
   makeUserAvailableInViews,
   isOwner,
   returnHome,
+  levelPermisionWriter,
+  levelPermisionEditor,
+  levelPermisionAdmin,
+  isOwnerOrAdmin,
 };

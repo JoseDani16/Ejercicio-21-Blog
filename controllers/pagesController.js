@@ -17,7 +17,7 @@
  */
 
 const { format } = require("date-fns");
-const { Article } = require("../models");
+const { Article, User } = require("../models");
 
 async function showHome(req, res) {
   const articles = await Article.findAll({
@@ -38,6 +38,11 @@ async function showArticle(req, res) {
 
 async function showNewArticle(req, res) {
   res.render("newArticle");
+}
+
+async function showEditUsers(req, res) {
+  const users = await User.findAll();
+  res.render("editUsers", { users });
 }
 
 async function showContact(req, res) {
@@ -64,4 +69,5 @@ module.exports = {
   showRegister,
   showLogin,
   showArticle,
+  showEditUsers,
 };

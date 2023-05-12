@@ -58,10 +58,17 @@
 
         <div id="comments" class="col-7">
           <h4>Comments <%= comments.length %></h4>
-          <% for (const comment of comments) {%>
+          <% for (const comment of comments) {%> <% if (user.levelPermission>=3) {%>
+          <form action="/comentarios/<%= comment.id %>/editor" method="post">
+            <textarea name="comment" class="form-control" rows="4"><%= comment.comment %></textarea>
+            <div id="button" class="d-grid gap-2 mt-4">
+              <button class="btn btn-success p-0" type="submit">Edit</button>
+            </div>
+          </form>
+          <% } else{ %>
           <p><%= comment.comment %></p>
+          <% } %>
           <small><%= comment.firstname +' '+ comment.lastname %></small>
-
           <hr />
 
           <%} %>

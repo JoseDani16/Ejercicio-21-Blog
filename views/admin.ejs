@@ -32,22 +32,24 @@
           </tr>
         </thead>
         <tbody>
-          <% for (article of articles) { %>
-
+          <% for(article of articles) { %>
           <tr class="border-bottom">
-            <th scope="row"><%=article.dataValues.id%></th>
-            <td><%=article.dataValues.title%></td>
-            <td><%=article.dataValues.content.slice(0, 150) + "..."%></td>
-            <td><img src="/img/<%=article.dataValues.image%>" class="img-fluid" /></td>
-            <td><%=article.createdAt%></td>
+            <th scope="row"><%=article.id%></th>
+            <td><%=article.title%></td>
+            <td><%=article.content.slice(0, 150) + "..."%></td>
+            <td><img src="/img/<%=article.image%>" class="img-fluid" /></td>
+            <td><%= format(article.createdAt, 'do MMMM, yyyy')%></td>
             <td><%=article.user.firstname%> <%=article.user.lastname%></td>
             <td class="d-flex">
-              <a href="/articulos/editar/<%=article.dataValues.id%>" class="btn btn-primary me-2"
+              <% if (user.levelPermission>=3) {%>
+              <a href="/articulos/editar/<%=article.id%>/editor" class="btn btn-primary me-2"
                 >Editar</a
               >
-              <a href="/articulos/delete/<%=article.dataValues.id%>" class="btn btn-danger"
-                >Eliminar</a
-              >
+              <% } else { %>
+              <a href="/articulos/editar/<%=article.id%>" class="btn btn-primary me-2">Editar</a>
+              <% } %> <% if(article.userId === user.id || user.levelPermission > 1){%>
+              <a href="/articulos/delete/<%=article.id%>" class="btn btn-danger">Eliminar</a>
+              <% } %>
             </td>
           </tr>
           <%}%>

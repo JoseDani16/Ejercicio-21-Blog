@@ -4,20 +4,19 @@ const formidable = require("formidable");
 
 //creo controlador para la ruta admin
 async function showAdmin(req, res) {
-  const articles = await Article.findAll({
-    where: {
-      userId: req.user.id,
-    },
-    include: "user",
-  });
+  const articles = await Article.findAll(
+    req.user.levelPermission < 2
+      ? {
+          order: [["createdAt", "DESC"]],
+          where: {
+            userId: req.user.id,
+          },
+          include: "user",
+        }
+      : { order: [["createdAt", "DESC"]], include: "user" },
+  );
 
-  const formattedArticles = articles.map((article) => {
-    const dateToFormat = article.createdAt;
-    const formattedDate = format(dateToFormat, "yyyy-MM-dd hh:mm:ss");
-    return { ...article, createdAt: formattedDate };
-  });
-
-  return res.render("admin", { articles: formattedArticles });
+  return res.render("admin", { articles, format });
 }
 
 //crear articulo
@@ -83,24 +82,6 @@ async function create(req, res) {
 
 async function store(req, res) {}
 
-/*
-  const form = formidable({
-    multiples: false,
-    uploadDir: __dirname + "/../public/img",
-    keepExtensions: true,
-  });
-
-  form.parse(req, async (err, fields, files) => {
-    const article = await Article.create({
-      title: fields.title,
-      content: fields.content,
-      image: files.image.name,
-    });
-
-    return res.redirect("/admin");
-  });
-}
-*/
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   const articleId = req.params.id;

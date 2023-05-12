@@ -20,8 +20,7 @@ async function index(req, res) {}
 // Store a newly created resource in storage.
 async function store(req, res) {
   const articleId = req.params.id;
-
-  const newComment = await Comment.create({
+  await Comment.create({
     firstname: req.user.firstname,
     lastname: req.user.lastname,
     comment: req.body.comment,
@@ -35,7 +34,15 @@ async function store(req, res) {
 async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const comment = await Comment.update(
+    {
+      comment: req.body.comment,
+    },
+    { where: { id: req.params.id } },
+  );
+  return res.redirect("/");
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}

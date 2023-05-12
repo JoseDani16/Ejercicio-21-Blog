@@ -28,6 +28,11 @@ class User extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        levelPermission: {
+          type: DataTypes.TINYINT,
+          allowNull: false,
+          defaultValue: 1,
+        },
       },
       {
         sequelize,
@@ -35,8 +40,8 @@ class User extends Model {
         hooks: {
           beforeCreate: async (user, options) => {
             const hashedPassword = await bcrypt.hash(user.password, 4);
-            user.password = hashedPassword; 
-          }
+            user.password = hashedPassword;
+          },
         },
       },
     );

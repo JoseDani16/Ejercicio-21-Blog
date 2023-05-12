@@ -1,3 +1,4 @@
+const { levelPermisionAdmin } = require("../middleware/auth");
 const { User } = require("../models");
 
 // Display a listing of the resource.
@@ -40,10 +41,24 @@ async function store(req, res) {
 async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const { levelPermission } = req.body;
+  const user = await User.update(
+    {
+      levelPermission,
+    },
+    { where: { id: req.params.id } },
+  );
+  return res.redirect("back");
+}
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const userId = req.params.id;
+  const user = await User.findByPk(userId);
+  await user.destroy();
+  return res.redirect("back");
+}
 
 // Otros handlers...
 // ...
