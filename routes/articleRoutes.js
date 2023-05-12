@@ -1,23 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const articleController = require("../controllers/articleController");
-const {ensureAuthenticated} = require("../middleware/auth");
+const pagesController = require("../controllers/pagesController");
+
+const { ensureAuthenticated, isOwner } = require("../middleware/auth");
 
 // Rutas relacionadas a los artículos:
 // ...
 
 router.get("/", articleController.index);
-router.get("/crear", ensureAuthenticated, articleController.showNewArticle);
-router.get("/:id", ensureAuthenticated, articleController.showArticle);
-router.get("/editar/:id", ensureAuthenticated, articleController.edit);
-router.post("/editar/:id", articleController.update);
-router.get("/delete/:id", articleController.destroy);
-//router.post("/", articleController.store);
 
-//nuevo post crear artículo
-router.post("/crear/new", articleController.create);
+router.get("/crear", ensureAuthenticated, pagesController.showNewArticle);
+router.post("/crear", ensureAuthenticated, articleController.create);
+
+router.get("/:id", ensureAuthenticated, pagesController.showArticle);
+
+router.get("/editar/:id", isOwner, articleController.edit);
+router.post("/editar/:id", isOwner, articleController.update);
+
+router.get("/delete/:id", isOwner, articleController.destroy);
 
 module.exports = router;
-
-//router.get("/:id/editar", articleController.edit);
-//router.patch("/:id", articleController.update);

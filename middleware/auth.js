@@ -1,3 +1,5 @@
+const { Article } = require("../models");
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -6,7 +8,19 @@ function ensureAuthenticated(req, res, next) {
     return res.redirect("/login");
   }
 }
+function returnHome(req, res, next) {
+  req.session.redirectTo = "/";
+  next();
+}
 
+async function isOwner(req, res, next) {
+  const { userId } = await Article.findByPk(req.params.id);
+  if (req.user && req.user.id === userId) {
+    return next();
+  } else {
+    return res.redirect("/");
+  }
+}
 function redirectIfAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     res.redirect("/");
@@ -20,4 +34,10 @@ function makeUserAvailableInViews(req, res, next) {
   return next();
 }
 
-module.exports = { ensureAuthenticated, redirectIfAuthenticated, makeUserAvailableInViews };
+module.exports = {
+  ensureAuthenticated,
+  redirectIfAuthenticated,
+  makeUserAvailableInViews,
+  isOwner,
+  returnHome,
+};

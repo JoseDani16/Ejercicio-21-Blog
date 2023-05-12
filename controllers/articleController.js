@@ -21,19 +21,8 @@ async function showAdmin(req, res) {
 }
 
 //crear articulo
-async function showNewArticle(req, res) {
-  res.render("newArticle");
-}
 
 //mostrar articulo
-async function showArticle(req, res) {
-  const id = req.params.id;
-  const article = await Article.findByPk(id, { include: ["user", "comments"] });
-  const comments = article.comments.sort((a, b) => b.createdAt - a.createdAt);
-  //console.log(article);
-
-  return res.render("article", { article, comments });
-}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {
@@ -133,8 +122,6 @@ async function destroy(req, res) {
 
 module.exports = {
   showAdmin,
-  showNewArticle,
-  showArticle,
   index,
   show,
   create,

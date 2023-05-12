@@ -14,13 +14,10 @@
   </head>
 
   <body>
-    <%- include("./partials/navbarInLog.ejs") %>
-    <% if (messages.error) { %>
-      <div class="alert alert-danger">
-        <%= messages.error %>
-      </div>
+    <%- include("./partials/navbarInLog.ejs") %> <% if (messages.error) { %>
+    <div class="alert alert-danger"><%= messages.error %></div>
     <% } %>
-    <section class="vh-100 mt-5">
+    <section class="mt-5">
       <div class="container-fluid h-custom">
         <div class="container">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -32,7 +29,7 @@
               />
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form action="/admin/login" method="post" >
+              <form action="/login" method="post">
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                   <input
@@ -57,10 +54,6 @@
                   <label class="form-label" for="password">Password</label>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                  <!-- Checkbox -->
-                </div>
-
                 <div class="text-center text-lg-start mt-4 pt-2">
                   <button
                     type="submit"
@@ -70,15 +63,17 @@
                     Login
                   </button>
                   <p class="small fw-bold mt-2 pt-1 mb-0">
-                    Don't have an account? <a href="/registro" class="link-danger">Register</a>
+                    Don't have an account?
+                    <a href="/usuarios/crear" class="link-danger">Register</a>
                   </p>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        <%-include ("partials/footer") %>
+      </div>
     </section>
+    <%-include ("partials/footer") %>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

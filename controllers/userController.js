@@ -10,7 +10,31 @@ async function show(req, res) {}
 async function create(req, res) {}
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  try {
+    const { firstname, lastname, email, password } = req.body;
+    const [user, created] = await User.findOrCreate({
+      where: { email },
+      defaults: {
+        firstname,
+        lastname,
+        password,
+      },
+    });
+
+    if (created) {
+      req.login(user, () => res.redirect("/"));
+    } else {
+      req.flash("falla", "el correo electronico ya está registrado");
+      req.flash("firstname", firstname);
+      req.flash("lastname", lastname);
+      res.redirect("back");
+    }
+  } catch (error) {
+    req.flash("error", error.message);
+    return res.redirect("back");
+  }
+}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {}
