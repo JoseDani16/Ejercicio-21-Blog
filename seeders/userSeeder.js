@@ -16,19 +16,23 @@
  */
 
 const { faker } = require("@faker-js/faker");
-const { Article, User } = require("../models");
+const { Article, User, Role } = require("../models");
 
 faker.locale = "es";
 
 module.exports = async () => {
+  const roles = await Role.findAll();
   const users = [];
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 25; i++) {
+    const randomRole = roles[Math.floor(Math.random() * roles.length)];
+
     users.push({
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      roleId: randomRole.id,
     });
   }
 

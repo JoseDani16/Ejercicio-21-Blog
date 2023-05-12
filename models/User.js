@@ -36,6 +36,10 @@ class User extends Model {
           beforeCreate: async (user, options) => {
             const hashedPassword = await bcrypt.hash(user.password, 4);
             user.password = hashedPassword; 
+            
+            if (!user.roleId){
+              user.roleId = 1;
+            }
           }
         },
       },
