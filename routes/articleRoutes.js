@@ -23,6 +23,7 @@ router.get("/:id", ensureAuthenticated, pagesController.showArticle);
 
 router.get("/editar/:id", levelPermisionWriter, isOwner, articleController.edit);
 router.post("/editar/:id", levelPermisionWriter, isOwner, articleController.update);
+
 router.get("/editar/:id/editor", levelPermisionEditor, articleController.edit);
 router.post("/editar/:id/editor", levelPermisionEditor, articleController.update);
 
