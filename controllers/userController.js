@@ -1,4 +1,4 @@
-const { Article, User, Role } = require("../models");
+const { Article, User, Role, Comment } = require("../models");
 const { findAll } = require("../models/User");
 
 // Display a listing of the resource.
@@ -68,7 +68,11 @@ async function adminDestroy(req, res) {
   const user = await User.findByPk(id, { include: ["articles"] });
   
   for (article of user.articles){
-    await Article.destroy({where:{id: article.id}})
+      const comments = await Comment.findAll({where:{articleId: article.id}});
+      for (comment of comments){
+        await Comment.destroy({where:{id: comment.id}});
+      }
+    await Article.destroy({where:{id: article.id}});
   }
 
   await User.destroy({where:{id:id}})
