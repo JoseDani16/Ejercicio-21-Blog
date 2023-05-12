@@ -16,6 +16,9 @@
 
   <body>
     <%- include("./partials/navbar.ejs") %>
+    <% if (messages.perms) { %>
+      <div class="alert alert-danger"><%= messages.perms %></div>
+      <% } %>
     <div class="jumbotron">
       <div class="container text-center">
         <h1 class="fs-1 text-white fw-bold">Hack the Blog</h1>

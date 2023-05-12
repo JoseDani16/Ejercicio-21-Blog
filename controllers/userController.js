@@ -1,7 +1,12 @@
-const { User } = require("../models");
+const { Article, User, Role } = require("../models");
+const { findAll } = require("../models/User");
 
 // Display a listing of the resource.
-async function index(req, res) {}
+async function adminIndex(req, res) {
+  const users = await User.findAll();
+  const roles = await Role.findAll();
+  res.render("permisos",{users, roles})
+}
 
 // Display the specified resource.
 async function show(req, res) {}
@@ -45,15 +50,44 @@ async function update(req, res) {}
 // Remove the specified resource from storage.
 async function destroy(req, res) {}
 
+async function changePerms(req, res) {
+  const {id, role} = req.body
+  await User.update(
+    {
+    roleId: role
+  },
+  {
+    where: {id:id}
+}
+)
+return res.redirect("/admin")
+}
+
+async function adminDestroy(req, res) {
+  const id = req.query.id*1;
+  const user = await User.findByPk(id, { include: ["articles"] });
+  
+  for (article of user.articles){
+    await Article.destroy({where:{id: article.id}})
+  }
+
+  await User.destroy({where:{id:id}})
+
+  return res.redirect("/admin")
+}
+
+
 // Otros handlers...
 // ...
 
 module.exports = {
-  index,
+  adminIndex,
   show,
   create,
   store,
   edit,
   update,
   destroy,
+  changePerms,
+  adminDestroy,
 };

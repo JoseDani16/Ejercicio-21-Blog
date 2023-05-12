@@ -1,9 +1,19 @@
-const { Article, User } = require("../models");
+const { Article, User, Role } = require("../models");
 const { format } = require("date-fns");
 const formidable = require("formidable");
 
 //creo controlador para la ruta admin
 async function showAdmin(req, res) {
+  if (req.user.role.role !== "Escritor"){
+    const articles = await Article.findAll({include:"user"});
+        const formattedArticles = articles.map((article) => {
+        const dateToFormat = article.createdAt;
+        const formattedDate = format(dateToFormat, "yyyy-MM-dd hh:mm:ss");
+        return { ...article, createdAt: formattedDate };
+                });
+  
+    return res.render("admin", { articles: formattedArticles });
+  }else{
   const articles = await Article.findAll({
     where: {
       userId: req.user.id,
@@ -18,6 +28,7 @@ async function showAdmin(req, res) {
   });
 
   return res.render("admin", { articles: formattedArticles });
+}
 }
 
 //crear articulo

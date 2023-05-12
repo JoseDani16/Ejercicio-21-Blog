@@ -16,9 +16,20 @@
 
   <body>
     <%- include("./partials/navbar.ejs") %>
+    <% if (messages.usuariomodificado) { %>
+      <div class="alert alert-success"><%= messages.usuariomodificado %></div>
+      <% } %>
+      <% if (messages.perms) { %>
+        <div class="alert alert-danger"><%= messages.perms %></div>
+        <% } %>
     <div class="conatiner mWidth">
       <h2>Articles</h2>
-      <a href="/articulos/crear" class="btn btn-success">New</a>
+      <div id="botones" class="d-flex justify-content-between">
+        <a href="/articulos/crear" class="btn btn-success">New</a>
+        <%if (user.role.role === "Administrador") {%>
+          <a href="/usuarios" class="btn btn-warning">Administrar Permisos</a>
+        <%}%>
+      </div>
       <table class="table">
         <thead>
           <tr>
