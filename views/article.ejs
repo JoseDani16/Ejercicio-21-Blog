@@ -57,11 +57,15 @@
         </div>
 
         <div id="comments" class="col-7">
-          <h4>Comments <%= comments.length %></h4>
+          <h4>Comments (<%= comments.length %>)</h4>
           <% for (const comment of comments) {%>
-          <p><%= comment.comment %></p>
+            <p><%= comment.comment %></p>
+          <div class="d-flex justify-content-between"> 
           <small><%= comment.firstname +' '+ comment.lastname %></small>
-
+          <%if(user.roleId > 2){%>
+            <a href="/comentarios/<%=comment.id%>/gestionar" class="btn btn-light">gestionar</a>
+            <%}%>
+          </div>
           <hr />
 
           <%} %>

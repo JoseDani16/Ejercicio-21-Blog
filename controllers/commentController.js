@@ -32,10 +32,26 @@ async function store(req, res) {
 }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) {
+  const id = req.params.id;
+  const comment = await Comment.findByPk(id);
+  res.render("editComment",{comment});
+}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const id = req.params.id;
+  const {comment} = req.body;
+  const {articleId} = await Comment.findByPk(id)
+  await Comment.update(
+    {
+      comment,
+  },
+  {
+    where:{id:id},
+  })
+  res.redirect(`/articulos/${articleId}`)
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}

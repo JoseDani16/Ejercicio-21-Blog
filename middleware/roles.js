@@ -1,5 +1,5 @@
 const { findByPk } = require("../models/User");
-const {Article} = require("../models/index")
+const {Article, Comment} = require("../models/index")
 
 function isNotLector (req, res, next){
     if (req.user.role.role !== "Lector"){
@@ -55,6 +55,17 @@ async function deleteArticles (req, res, next){
        return res.redirect("back");
    }
    }
+   async function editComment (req, res, next){
+    const id = req.params.id;
+    const comment = await Comment.findOne({where:{id:id}});
+
+    if(comment && req.user.roleId > 2){
+        next();
+    }else{
+        req.flash("perms", "No tiene los permisos para editar comentarios o el comentario no existe");
+        return res.redirect("/");
+    }
+   }   
 module.exports = {
     isNotLector,
     isNotWriter,
@@ -62,4 +73,5 @@ module.exports = {
     onlyWriter,
     editArticles,
     deleteArticles,
+    editComment,
 }
