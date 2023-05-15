@@ -56,7 +56,34 @@ async function edit(req, res) {
 }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const id = req.params.id;
+  const {firstname, lastname, email, password} = req.body;
+  if (!password){
+await User.update(
+  {firstname,
+     lastname,
+      email
+    },
+    {
+      where:{id}
+    }
+  )
+  } else{
+    await User.update(
+      {firstname,
+         lastname,
+          email,
+          password,
+        },
+        {
+          where:{id},
+          individualHooks: true,
+        },
+        )
+  }
+  return res.redirect(`/usuarios/${id}`)
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {}

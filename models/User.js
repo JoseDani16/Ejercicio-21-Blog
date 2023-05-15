@@ -40,9 +40,17 @@ class User extends Model {
             if (!user.roleId){
               user.roleId = 1;
             }
-          }
-        },
+          },
+          beforeUpdate: async (user, options) => {
+            try {
+              const hashedPassword = await bcrypt.hash(user.password, 4);
+              user.password = hashedPassword;
+            } catch (error) {
+              console.error('Error hashing password:', error);
+            }
+        }
       },
+    }
     );
 
     return User;

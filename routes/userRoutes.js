@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const pagesController = require("../controllers/pagesController");
-const { ensureAuthenticated, redirectIfAuthenticated, returnHome, ownerProfile } = require("../middleware/auth");
+const { ensureAuthenticated, redirectIfAuthenticated, returnHome, ownerProfile, checkPassword } = require("../middleware/auth");
 const {onlyAdmin} = require("../middleware/roles");
 
 // Rutas relacionadas a los usuarios:
@@ -15,7 +15,7 @@ router.get("/crear", redirectIfAuthenticated, returnHome, pagesController.showRe
 router.post("/", userController.store);
 router.get("/:id", ensureAuthenticated, ownerProfile, userController.show);
 router.get("/:id/editar", ensureAuthenticated, ownerProfile, userController.edit);
-router.post("/:id", ensureAuthenticated, onlyAdmin, userController.update);
+router.post("/:id", ensureAuthenticated, ownerProfile, checkPassword, userController.update);
 router.delete("/:id", userController.destroy);
 
 

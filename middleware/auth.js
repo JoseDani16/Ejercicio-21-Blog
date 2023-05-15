@@ -1,4 +1,6 @@
-const { Article } = require("../models");
+const { Article, User } = require("../models");
+const bcrypt = require("bcryptjs");
+const { findByPk } = require("../models/User");
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -44,6 +46,20 @@ function makeUserAvailableInViews(req, res, next) {
   return next();
 }
 
+async function checkPassword (req, res, next){
+  const id = req.user.id;
+  const {actualPassword} = req.body;
+  const {password} = await User.findByPk(id);
+  const match = await bcrypt.compare(actualPassword, password)
+  
+  if (match){
+    next();
+  }else{
+    req.flash("perms", "la contraseña es incorrecta");
+        return res.redirect("back");
+  }
+}
+
 module.exports = {
   ensureAuthenticated,
   redirectIfAuthenticated,
@@ -51,4 +67,5 @@ module.exports = {
   isOwner,
   returnHome,
   ownerProfile,
+  checkPassword,
 };
