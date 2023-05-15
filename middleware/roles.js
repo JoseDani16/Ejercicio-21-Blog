@@ -55,7 +55,7 @@ async function deleteArticles (req, res, next){
        return res.redirect("back");
    }
    }
-   async function editComment (req, res, next){
+   async function manageComment (req, res, next){
     const id = req.params.id;
     const comment = await Comment.findOne({where:{id:id}});
 
@@ -73,5 +73,5 @@ module.exports = {
     onlyWriter,
     editArticles,
     deleteArticles,
-    editComment,
+    manageComment,
 }

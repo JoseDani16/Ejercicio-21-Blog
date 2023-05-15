@@ -62,9 +62,12 @@
             <p><%= comment.comment %></p>
           <div class="d-flex justify-content-between"> 
           <small><%= comment.firstname +' '+ comment.lastname %></small>
+          <div>
           <%if(user.roleId > 2){%>
-            <a href="/comentarios/<%=comment.id%>/gestionar" class="btn btn-light">gestionar</a>
+            <a href="/comentarios/<%=comment.id%>/gestionar" class="btn btn-light">Editar</a>
+            <a href="/comentarios/<%=comment.id%>/eliminar" class="btn btn-light ms-3">Eliminar</a>
             <%}%>
+          </div>
           </div>
           <hr />
 

@@ -54,7 +54,13 @@ async function update(req, res) {
 }
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const id = req.params.id;
+  const {articleId} = Comment.findByPk(id);
+  await Comment.destroy({where:{id}});
+  res.redirect("back");
+
+}
 
 // Otros handlers...
 // ...
