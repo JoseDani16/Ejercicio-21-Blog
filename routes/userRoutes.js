@@ -16,7 +16,7 @@ router.post("/", userController.store);
 router.get("/:id", ensureAuthenticated, ownerProfile, userController.show);
 router.get("/:id/editar", ensureAuthenticated, ownerProfile, userController.edit);
 router.post("/:id", ensureAuthenticated, ownerProfile, checkPassword, userController.update);
-router.delete("/:id", userController.destroy);
+router.delete("/:id",ensureAuthenticated, ownerProfile, userController.destroy);
 
 
 module.exports = router;

@@ -25,9 +25,9 @@ Role.initModel(sequelize);
  * Luego de definir los modelos, se pueden establecer relaciones entre los
  * mismos (usando métodos como belongsTo, hasMany y belongsToMany)...
  */
-User.hasMany(Article);
+User.hasMany(Article, { onDelete: 'cascade', hooks: true });
 Article.belongsTo(User, { foreignKey: "userId" });
-Article.hasMany(Comment);
+Article.hasMany(Comment, { onDelete: 'cascade', hooks: true });
 Comment.belongsTo(Article);
 User.belongsTo(Role);
 

@@ -1,5 +1,5 @@
 const { where } = require("sequelize");
-const { Article, User, Role, Comment } = require("../models");
+const { Article, User, Role, Comment} = require("../models");
 const { findAll } = require("../models/User");
 const { format } = require("date-fns");
 
@@ -86,7 +86,12 @@ await User.update(
 }
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const id = req.params.id;
+  req.session.destroy();
+  await User.destroy({where:{id}});
+  res.redirect("/");
+}
 
 async function changePerms(req, res) {
   const {id, role} = req.body
