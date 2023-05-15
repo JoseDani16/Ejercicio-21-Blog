@@ -16,3 +16,9 @@ for (let i = 0; i < limitContent.length; i++) {
   limitContent[i].innerHTML = contenido;
 }
 */
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})

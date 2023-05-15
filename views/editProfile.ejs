@@ -25,9 +25,9 @@
               <div class="card-body p-4 p-md-5">
                 <div class="d-flex justify-content-between">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Profile</h3>
-                  <form method="POST" action="/usuarios/<%=user.id%>/?_method=DELETE">
-                    <button type="submit" class="btn btn-danger btn-lg">Delete profile</button>
-                  </form>
+                  <button type="button" class="btn btn-danger btn-lg mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete profile
+                  </button>
                 </div>
                 <% if (messages.perms) { %>
                   <div class="alert alert-danger"><%= messages.perms %></div>
@@ -99,6 +99,30 @@
         </div>
       </div>
     </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/usuarios/<%=user.id%>/?_method=DELETE">
+          <div class="form-outline">
+            <input type="password" id="actualPassword" name="actualPassword" class="form-control form-control-lg" />
+            <label class="form-label" for="actualPassword">Actual Password</label>
+          </div>
+          <button type="submit" class="btn btn-danger btn-lg">Delete profile</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <%- include("partials/footer") %>
     <script
