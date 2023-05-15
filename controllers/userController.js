@@ -1,5 +1,7 @@
+const { where } = require("sequelize");
 const { Article, User, Role, Comment } = require("../models");
 const { findAll } = require("../models/User");
+const { format } = require("date-fns");
 
 // Display a listing of the resource.
 async function adminIndex(req, res) {
@@ -9,7 +11,14 @@ async function adminIndex(req, res) {
 }
 
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  const userId = req.params.id;
+  const articles = await Article.findAll({
+    where:{userId},
+    order:[['createdAt', 'DESC']]
+  });
+  res.render("profile",{articles, format});
+}
 
 // Show the form for creating a new resource
 async function create(req, res) {}
@@ -42,7 +51,9 @@ async function store(req, res) {
 }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) {
+  res.render("editProfile")
+}
 
 // Update the specified resource in storage.
 async function update(req, res) {}

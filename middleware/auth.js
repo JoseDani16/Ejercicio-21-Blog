@@ -21,6 +21,16 @@ async function isOwner(req, res, next) {
     return res.redirect("/");
   }
 }
+
+function ownerProfile (req, res, next){
+  if (req.user.id === req.params.id*1){
+    next();
+  }else{
+    req.flash("perms", "No tiene los permisos para ingresar al perfil");
+        return res.redirect("/");
+  }
+}
+
 function redirectIfAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     res.redirect("/");
@@ -40,4 +50,5 @@ module.exports = {
   makeUserAvailableInViews,
   isOwner,
   returnHome,
+  ownerProfile,
 };
